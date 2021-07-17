@@ -36,6 +36,7 @@ public class SmartRocket2 : MonoBehaviour
     public Text generationUI;
     public Text highestFitnessUI;
     public Button BestRocketUI;
+    public Button resetUI;
     public Slider targetFramerate;
 
     public int popSize = 40;
@@ -247,6 +248,7 @@ public class SmartRocket2 : MonoBehaviour
             FrameRateScript.target = 30;
             generationUI.enabled = false;
             lifespanUI.enabled = false;
+            resetUI.interactable = false;
             for (int i = 0; i < popSize; i++) {
                 rocketClass[i].GetComponent<SpriteRenderer>().enabled = false;
             }
@@ -278,6 +280,7 @@ public class SmartRocket2 : MonoBehaviour
             highestFitnessUI.enabled = false;
             generationUI.enabled = true;
             lifespanUI.enabled = true;
+            resetUI.interactable = true;
         }
     }
 
