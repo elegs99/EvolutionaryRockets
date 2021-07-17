@@ -167,7 +167,7 @@ public class Rocket : MonoBehaviour{
         acc += force;
     }
     public void UpdateRocket(float dist) {
-        if (dist < 1.9f) {
+        if (dist < 2.5f) {
             completed = true;
             rocket.GetComponent<SpriteRenderer>().enabled = false;
         }

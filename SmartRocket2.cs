@@ -35,7 +35,6 @@ public class SmartRocket2 : MonoBehaviour
     public Text lifespanUI;
     public Text generationUI;
     public Text highestFitnessUI;
-    public Button InfoButtonUI;
     public Button BestRocketUI;
     public Slider targetFramerate;
 
@@ -95,6 +94,12 @@ public class SmartRocket2 : MonoBehaviour
         return new Vector2(Mathf.Cos(random) * maxForce, Mathf.Sin(random) * maxForce);
     }
     public void NormalRun() {
+        if (generation == 0) {
+            BestRocketUI.interactable = false;
+        }
+        else {
+            BestRocketUI.interactable = true;
+        }
         if (count == 0) {
             for (int i = 0; i < popSize; i++) {
                 rocketClass[i].setPos(firePoint.transform.position.x, firePoint.transform.position.y);
@@ -228,19 +233,20 @@ public class SmartRocket2 : MonoBehaviour
         //Print Statements for Best Rocket from the last generation
         //Print Statements for Best Rocket from all generations
         if (bestRocket.getCrash()) {
-            highestFitnessUI.text = "Highest Fitness from all Generations: " + bestRocket.getFitness() + "\n" + bestRocket.name + " from Generation #" + (bestGen + 1) + "\nI crashed " + bestRocket.getDist() + " miles away";
+            highestFitnessUI.text = bestRocket.name + " from Generation #" + (bestGen + 1) + "\nI crashed " + bestRocket.getDist() + " ly away";
         }
         else if (bestRocket.getComp()) {
-            highestFitnessUI.text = "Highest Fitness from all Generations: " + bestRocket.getFitness() + "\n" + bestRocket.name + " from Generation #" + (bestGen + 1) + "\nI took " + bestRocket.getTime() + " frames to reach the target";
+            highestFitnessUI.text = bestRocket.name + " from Generation #" + (bestGen + 1) + "\nI took " + bestRocket.getTime() + " frames to reach the target";
         }
         else {
-            highestFitnessUI.text = "Highest Fitness from all Generations: " + bestRocket.getFitness() + "\n" + bestRocket.name + " from Generation #" + (bestGen + 1) + "\nIt took " + bestRocket.getTime() + " frames to get " + bestRocket.getDist() + " miles away";
+            highestFitnessUI.text = bestRocket.name + " from Generation #" + (bestGen + 1) + "\nIt took " + bestRocket.getTime() + " frames to get " + bestRocket.getDist() + " ly away";
         }
     }
     public void BestRun() {
         if (count == 0) {
             FrameRateScript.target = 30;
-            generationUI.text = "Generation = " + (bestGen + 1);
+            generationUI.enabled = false;
+            lifespanUI.enabled = false;
             for (int i = 0; i < popSize; i++) {
                 rocketClass[i].GetComponent<SpriteRenderer>().enabled = false;
             }
@@ -269,6 +275,9 @@ public class SmartRocket2 : MonoBehaviour
             bestRocket.GetComponent<SpriteRenderer>().enabled = false;
             BestRocketUI.interactable = true;
             count = 0;
+            highestFitnessUI.enabled = false;
+            generationUI.enabled = true;
+            lifespanUI.enabled = true;
         }
     }
 
@@ -292,19 +301,7 @@ public class SmartRocket2 : MonoBehaviour
         generationUI.text = "Current Generation = ";
         highestFitnessUI.text = "Highest Fitness from all Generations: ";
     }
-    public void InfoButton() {
-        if (highestFitnessUI.GetComponent<Text>().enabled)
-        {
-            InfoButtonUI.GetComponentInChildren <Text>().text = "More Info";
-            highestFitnessUI.GetComponent<Text>().enabled = false;
-        }
-        else {
-            InfoButtonUI.GetComponentInChildren<Text>().text = "Less Info";
-            highestFitnessUI.GetComponent<Text>().enabled = true;
-        }
-        
-    }
-    public void bestRocketRunButton() {
+    public void BestRocketRunButton() {
         BestRocketUI.interactable = false;
         runBestRocket = true;
         count = 0;
@@ -313,5 +310,6 @@ public class SmartRocket2 : MonoBehaviour
         bestRocket.setTime();
         bestRocket.setComp(false);
         bestRocket.setCrash(false);
+        highestFitnessUI.GetComponent<Text>().enabled = true;
     }
 }
