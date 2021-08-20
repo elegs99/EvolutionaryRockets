@@ -1,7 +1,7 @@
 # EvolutionaryRockets
 C# Scripts from unity project I completed in 2018
 <br>
-This code was written before I took any formal programming classes so please excuse the beginner mistakes
+If you choose to journey into my beginner code I must warn you to prepare yourself for many beginner mistakes. I won't excuse any of them but I also won't go back and fix them. Onward and upward. I hope you enjoy.
 <br>
 Evolutionary Learning algorithim is found in SmartRocket2.cs script
 <br><br>
